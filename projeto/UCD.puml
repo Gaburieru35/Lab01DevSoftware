@@ -1,0 +1,44 @@
+@startuml
+actor "Secretaria" as Secretaria
+actor "Aluno" as Aluno
+actor "Professor" as Professor
+actor "Sistema de Cobranças" as SistemaDeCobrancas
+
+usecase "Gerar Currículo para Semestre" as GerarCurriculo
+usecase "Manter Informações sobre Disciplinas, Professores e Alunos" as ManterInformacoes
+usecase "Efetuar Matrícula" as EfetuarMatricula
+usecase "Cancelar Matrícula" as CancelarMatricula
+usecase "Verificar Matrículas de Disciplinas" as VerificarMatriculas
+usecase "Encerrar Matrícula por Disciplina" as EncerrarMatricula
+usecase "Encerrar Disciplina" as EncerrarDisciplina
+usecase "Notificar Cobrança" as NotificarCobranca
+usecase "Realizar login" as RealizarLogin
+
+usecase "Realizar Matricula Obrigatoria" as MatriculaObrigatoria
+usecase "Realizar Matricula Optativa" as MatriculaOptativa
+
+Secretaria -> GerarCurriculo
+Secretaria -> ManterInformacoes
+
+Aluno -> EfetuarMatricula
+(EfetuarMatricula) .> (CancelarMatricula) : extends
+
+SistemaDeCobrancas -> NotificarCobranca : "Após Efetuar Matricula"
+Aluno --> NotificarCobranca : "Após Efetuar Matricula"
+
+Professor -> RealizarLogin
+Secretaria -> RealizarLogin
+Aluno -> RealizarLogin
+
+GerarCurriculo --> ManterInformacoes
+
+EfetuarMatricula --> VerificarMatriculas : "Verificar Se Há Vagas"
+
+(EfetuarMatricula) .> (MatriculaObrigatoria) : include
+(EfetuarMatricula) .> (MatriculaOptativa) : extend
+
+EfetuarMatricula -> EncerrarMatricula : "Se Chegar a 60 Alunos"
+EfetuarMatricula -> NotificarCobranca
+
+VerificarMatriculas -> EncerrarDisciplina : "Menos de 3 Alunos Inscritos"
+@enduml
