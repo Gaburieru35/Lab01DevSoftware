@@ -2,10 +2,12 @@
 actor "Secretaria" as Secretaria
 actor "Aluno" as Aluno
 actor "Professor" as Professor
-actor "Sistema de Cobranças" as SistemaDeCobrancas
+actor "Relogio" as Relogio
 
 usecase "Gerar Currículo para Semestre" as GerarCurriculo
-usecase "Manter Informações sobre Disciplinas, Professores e Alunos" as ManterInformacoes
+usecase "Manter Informações sobre Disciplinas" as ManterInformacoesDisciplinas
+usecase "Manter Informações sobre Professores" as ManterInformacoesProfessor
+usecase "Manter Informações sobre Alunos" as ManterInformacoesAluno
 usecase "Efetuar Matrícula" as EfetuarMatricula
 usecase "Cancelar Matrícula" as CancelarMatricula
 usecase "Verificar Matrículas de Disciplinas" as VerificarMatriculas
@@ -17,28 +19,29 @@ usecase "Realizar login" as RealizarLogin
 usecase "Realizar Matricula Obrigatoria" as MatriculaObrigatoria
 usecase "Realizar Matricula Optativa" as MatriculaOptativa
 
-Secretaria -> GerarCurriculo
-Secretaria -> ManterInformacoes
+usecase "Verificar alunos matriculados" as VerificarAlunos
 
-Aluno -> EfetuarMatricula
-(EfetuarMatricula) .> (CancelarMatricula) : extends
+Secretaria -up-> GerarCurriculo
+Secretaria -left-> ManterInformacoesProfessor
+Secretaria -down-> ManterInformacoesDisciplinas
+Secretaria -up->  ManterInformacoesAluno
 
-SistemaDeCobrancas -> NotificarCobranca : "Após Efetuar Matricula"
-Aluno --> NotificarCobranca : "Após Efetuar Matricula"
+Relogio -down-> VerificarMatriculas
 
-Professor -> RealizarLogin
+Aluno -up-> EfetuarMatricula
+Aluno -down- CancelarMatricula
+
+Professor -down-> RealizarLogin
+Professor -up-> VerificarAlunos
+
 Secretaria -> RealizarLogin
-Aluno -> RealizarLogin
+Aluno -left-> RealizarLogin
 
-GerarCurriculo --> ManterInformacoes
+(EfetuarMatricula) .-left-> (MatriculaObrigatoria) : include
+(EfetuarMatricula) .-up-> (MatriculaOptativa) : extends
 
-EfetuarMatricula --> VerificarMatriculas : "Verificar Se Há Vagas"
-
-(EfetuarMatricula) .> (MatriculaObrigatoria) : include
-(EfetuarMatricula) .> (MatriculaOptativa) : extend
-
-EfetuarMatricula -> EncerrarMatricula : "Se Chegar a 60 Alunos"
-EfetuarMatricula -> NotificarCobranca
+EfetuarMatricula .-right-> EncerrarMatricula : extends
+EfetuarMatricula .-right-> NotificarCobranca : include
 
 VerificarMatriculas -> EncerrarDisciplina : "Menos de 3 Alunos Inscritos"
 @enduml
