@@ -1,0 +1,62 @@
+@startuml
+class Usuario {
+  -nome: String
+  -id: int
+  -senha: String
+  +realizarLogin()
+}
+
+class Secretaria extends Usuario {
+  +gerarCurriculo()
+  +manterInformacoesDisciplina(Disciplina)
+  +manterInformacoesProfessor(Professor)
+  +manterInformacoesAluno(Aluno)
+}
+
+class Aluno extends Usuario {
+  -matricula: Matricula
+  -curso: String
+  +matricularDisciplina(Disciplina)
+  +cancelarMatricula(Disciplina)
+}
+
+class Professor extends Usuario {
+  -disciplina: Disciplina
+  +verificarAlunos(Disciplina)
+}
+
+class Disciplina {
+  -nome: String
+  -codigo: String
+  -creditos: int
+  -alunosMatriculados: int
+  +matricularAluno(Aluno)
+  +cancelarMatricula(Aluno)
+  +verificarMatriculas(): int
+  +encerrarDisciplina()
+}
+
+class Matricula {
+  -data: Date
+  -status: String
+  -tipo: String
+  +notificarCobranca()
+  +encerrarMatricula()
+}
+
+class Relogio {
+  -disciplina: Disciplina
+  +verificarMatriculas()
+}
+
+Secretaria o--> Disciplina : "manter informações" <<Aggregation>>
+
+Aluno --> Matricula : "realizar matricula" <<Dependency>>
+
+Professor -- Disciplina : "verificar alunos" <<Association>>
+
+Disciplina *-- Matricula : "gerenciar matriculas" <<Composition>>
+Relogio --> Disciplina : "verificar matriculas"
+
+Matricula -- Aluno : "associar aluno" <<Association>>
+@enduml
