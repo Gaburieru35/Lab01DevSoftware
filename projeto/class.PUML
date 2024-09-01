@@ -30,6 +30,7 @@ class Disciplina {
   -creditos: int
   -cargaHoraria: int
   -limite: int
+  -estaOfertada: boolean
 }
 
 class DisciplinasOfertadas {

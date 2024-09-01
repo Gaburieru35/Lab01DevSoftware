@@ -8,6 +8,11 @@ public class DisciplinasOfertadas {
     private boolean status = true;
     private Professor professor;
 
+    public DisciplinasOfertadas(Disciplina disciplina, Professor professor){
+        this.disciplina = disciplina;
+        this.professor = professor;
+    }
+
     public boolean matricularAluno(Aluno aluno){
         if(!verificarLimite()){
             aluno.getMatricula().matricularAlunoNaDisciplina(this);
@@ -46,4 +51,8 @@ public class DisciplinasOfertadas {
 	public void setProfessor(Professor professor){
 		this.professor = professor;
 	}
+
+    public Disciplina getDisciplina(){
+        return this.disciplina;
+    }
 }

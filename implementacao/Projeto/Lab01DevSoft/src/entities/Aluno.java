@@ -1,5 +1,7 @@
 package entities;
 
+import java.util.Random;
+
 public class Aluno extends Usuario {
 
 	private String curso;
@@ -9,7 +11,8 @@ public class Aluno extends Usuario {
 	}
 
 	public Aluno(String nome, int id, String senha, String curso, Matricula matricula) {
-		super(nome, id, senha);
+		super(nome,id,senha);
+
 		this.curso = curso;
 		this.matricula = matricula;
 	}

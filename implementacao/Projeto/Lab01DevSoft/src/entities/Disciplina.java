@@ -7,6 +7,7 @@ public class Disciplina {
 	private int creditos;
 	private int cargaHoraria;
 	private int limite;
+	private boolean estaOfertada = false;
 
 	public Disciplina(String name, String codigo, int creditos, int cargaHoraria) {
 		this.name = name;
@@ -53,6 +54,14 @@ public class Disciplina {
 
 	public void setLimite(int limite){
 		this.limite = limite;
+	}
+
+	public boolean getEstaOfertada(){
+		return this.estaOfertada;
+	}
+
+	public void setEstaOfertada(boolean estaOfertada){
+		this.estaOfertada = estaOfertada;
 	}
 
 }

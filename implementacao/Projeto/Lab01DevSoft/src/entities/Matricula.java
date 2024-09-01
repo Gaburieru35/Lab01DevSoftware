@@ -1,5 +1,6 @@
 package entities;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -8,7 +9,7 @@ public class Matricula {
 	private Date data;
 	private boolean status = true;
 	private String tipo;
-	private List<DisciplinasOfertadas> disciplinas;
+	private ArrayList<DisciplinasOfertadas> disciplinas = new ArrayList<DisciplinasOfertadas>();
 
 	public Matricula() {
 	}
@@ -61,5 +62,9 @@ public class Matricula {
 
 	public int getQuantidadeMatriculas(){
 		return this.disciplinas.size();
+	}
+
+	public ArrayList<DisciplinasOfertadas> getDisciplinas() {
+		return disciplinas;
 	}
 }

@@ -5,7 +5,7 @@ public class Professor extends Usuario {
 	public Professor() {
 	}
 
-	public Professor(String nome, int id, String senha, Disciplina disciplina) {
+	public Professor(String nome, int id, String senha) {
 		super(nome, id, senha);
 	}
 
