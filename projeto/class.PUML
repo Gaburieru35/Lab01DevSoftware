@@ -21,7 +21,6 @@ class Aluno extends Usuario {
 }
 
 class Professor extends Usuario {
-  -disciplina: Disciplina
   +verificarAlunos(Disciplina)
 }
 
@@ -29,34 +28,35 @@ class Disciplina {
   -nome: String
   -codigo: String
   -creditos: int
-  -alunosMatriculados: int
-  +matricularAluno(Aluno)
+  -cargaHoraria: int
+  -professor: Professor
   +cancelarMatricula(Aluno)
   +verificarMatriculas(): int
   +encerrarDisciplina()
+}
+
+class DisciplinasOfertadas {
+  -disciplina: Disciplina
+  -prazo: Date
+  +matricularAluno(Aluno)
 }
 
 class Matricula {
   -data: Date
   -status: String
   -tipo: String
+  -disciplinas: List<DisciplinaOfertada>
   +notificarCobranca()
   +encerrarMatricula()
 }
 
-class Relogio {
-  -disciplina: Disciplina
-  +verificarMatriculas()
-}
-
 Secretaria o--> Disciplina : "manter informações" <<Aggregation>>
-
-Aluno --> Matricula : "realizar matricula" <<Dependency>>
 
 Professor -- Disciplina : "verificar alunos" <<Association>>
 
-Disciplina *-- Matricula : "gerenciar matriculas" <<Composition>>
-Relogio --> Disciplina : "verificar matriculas"
+DisciplinasOfertadas *-- Matricula : "gerenciar matriculas" <<Composition>>
+
+DisciplinasOfertadas  -- Disciplina : "Ofertadas" <<Association>>
 
 Matricula -- Aluno : "associar aluno" <<Association>>
 @enduml
