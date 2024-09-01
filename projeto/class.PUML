@@ -16,12 +16,12 @@ class Secretaria extends Usuario {
 class Aluno extends Usuario {
   -matricula: Matricula
   -curso: String
-  +matricularDisciplina(Disciplina)
-  +cancelarMatricula(Disciplina)
+  +matricularDisciplina(Disciplina) : void
+  +cancelarMatricula(Disciplina) : void
 }
 
 class Professor extends Usuario {
-  +verificarAlunos(Disciplina)
+  +verificarAlunos(Disciplina) : void
 }
 
 class Disciplina {
@@ -29,25 +29,28 @@ class Disciplina {
   -codigo: String
   -creditos: int
   -cargaHoraria: int
-  -professor: Professor
-  +cancelarMatricula(Aluno)
-  +verificarMatriculas(): int
-  +encerrarDisciplina()
+  -limite: int
 }
 
 class DisciplinasOfertadas {
   -disciplina: Disciplina
   -prazo: Date
-  +matricularAluno(Aluno)
+  -status: boolean
+  -Professor: professor
+  +matricularAluno(Aluno) : boolean
+  +cancelarMatricula(Aluno) : boolean
+  +encerrarDisciplina : void
+  -verificarLimte() : boolean
 }
 
 class Matricula {
   -data: Date
-  -status: String
+  -status: boolean
   -tipo: String
   -disciplinas: List<DisciplinaOfertada>
-  +notificarCobranca()
-  +encerrarMatricula()
+  +notificarCobrança() : void
+  +matricularAlunoNaDisciplina(DisciplinasOfertadas) : boolean
+  +desmatricularAluno(DisciplinasOfertadas) : boolean
 }
 
 Secretaria o--> Disciplina : "manter informações" <<Aggregation>>

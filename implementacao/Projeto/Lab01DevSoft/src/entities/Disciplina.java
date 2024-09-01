@@ -5,22 +5,14 @@ public class Disciplina {
 	private String name;
 	private String codigo;
 	private int creditos;
-	private int alunosMatriculados;
+	private int cargaHoraria;
+	private int limite;
 
-	public Disciplina() {
-	}
-
-	public void matricularAluno(Aluno aluno) {
-	}
-
-	public void cancelarMatricula(Aluno aluno) {
-	}
-
-	public int verificarMatriculas() {
-		return 0;
-	}
-
-	public void encerrarDisciplina() {
+	public Disciplina(String name, String codigo, int creditos, int cargaHoraria) {
+		this.name = name;
+		this.codigo = codigo;
+		this.creditos = creditos;
+		this.cargaHoraria = cargaHoraria;
 	}
 
 	public String getName() {
@@ -47,12 +39,20 @@ public class Disciplina {
 		this.creditos = creditos;
 	}
 
-	public int getAlunosMatriculados() {
-		return alunosMatriculados;
+	public int getCargaHoraria(){
+		return this.cargaHoraria;
 	}
 
-	public void setAlunosMatriculados(int alunosMatriculados) {
-		this.alunosMatriculados = alunosMatriculados;
+	public void setCargaHoraria(int cargaHoraria){
+		this.cargaHoraria = cargaHoraria;
+	}
+
+	public int getLimite(){
+		return this.limite;
+	}
+
+	public void setLimite(int limite){
+		this.limite = limite;
 	}
 
 }
