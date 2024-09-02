@@ -1,9 +1,25 @@
 package com.lab01.demo.entities;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Matricula {
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "tb_matricula")
+public class Matricula implements Serializable {
+
+	
+	private static final long serialVersionUID = 1L;
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
 	private Date data;
 	private boolean status = true;
@@ -16,25 +32,25 @@ public class Matricula {
 	private void notificarCobranca() {
 	}
 
-	public boolean matricularAlunoNaDisciplina(DisciplinasOfertadas disciplinaConfirmada){
-		if(disciplinas.indexOf(disciplinaConfirmada) == -1){
+	public boolean matricularAlunoNaDisciplina(DisciplinasOfertadas disciplinaConfirmada) {
+		if (disciplinas.indexOf(disciplinaConfirmada) == -1) {
 			this.disciplinas.add(disciplinaConfirmada);
 			return true;
-		}	
+		}
 		return false;
 	}
 
-	public boolean desmatricularAluno(DisciplinasOfertadas disciplinaConfirmada){
+	public boolean desmatricularAluno(DisciplinasOfertadas disciplinaConfirmada) {
 		int disciplinaEncontrada = this.disciplinas.indexOf(disciplinaConfirmada);
-		if(disciplinaEncontrada != -1){
+		if (disciplinaEncontrada != -1) {
 			disciplinas.remove(disciplinaEncontrada);
 			return true;
-		}else{
+		} else {
 			return false;
 		}
 	}
 
-	//getter/setter
+	// getter/setter
 	public Date getData() {
 		return data;
 	}
@@ -59,11 +75,11 @@ public class Matricula {
 		this.tipo = tipo;
 	}
 
-	public int getQuantidadeMatriculas(){
+	public int getQuantidadeMatriculas() {
 		return this.disciplinas.size();
 	}
 
 	public ArrayList<DisciplinasOfertadas> getDisciplinas() {
 		return disciplinas;
 	}
-}	
+}

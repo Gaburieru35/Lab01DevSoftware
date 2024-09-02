@@ -1,9 +1,25 @@
 package com.lab01.demo.entities;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class DisciplinasOfertadas {
-    private Disciplina disciplina;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "tb_disciplinas_ofertadas")
+public class DisciplinasOfertadas implements Serializable {	
+
+	private static final long serialVersionUID = 1L;
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+
+	private Disciplina disciplina;
     private Date prazo;
     private boolean status = true;
     private Professor professor;

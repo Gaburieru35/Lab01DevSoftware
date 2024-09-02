@@ -1,17 +1,30 @@
 package com.lab01.demo.entities;
 
-public class Usuario {
+import java.io.Serializable;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "tb_usuario")
+public class Usuario implements Serializable {
+
+
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 	private String nome;
-	private int id;
 	private String senha;
 
 	public Usuario() {
 	}
 
-	public Usuario(String nome, int id, String senha) {
-		this.nome = nome;
-		this.id = id;
+	public Usuario(String nome , String senha) {
+		this.nome = nome;	
 		this.senha = senha;
 	}
 
@@ -26,11 +39,11 @@ public class Usuario {
 		this.nome = nome;
 	}
 
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 

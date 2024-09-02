@@ -1,6 +1,12 @@
 package com.lab01.demo.entities;
 
-public class Aluno extends Usuario {
+import java.io.Serializable;
+
+
+public class Aluno extends Usuario implements Serializable {
+
+	
+	private static final long serialVersionUID = 1L;
 
 	private String curso;
 	private Matricula matricula;
@@ -8,9 +14,8 @@ public class Aluno extends Usuario {
 	public Aluno() {
 	}
 
-	public Aluno(String nome, int id, String senha, String curso, Matricula matricula) {
-		super(nome,id,senha);
-
+	public Aluno(String nome, String senha, String curso, Matricula matricula) {
+		super(nome, senha);
 		this.curso = curso;
 		this.matricula = matricula;
 	}

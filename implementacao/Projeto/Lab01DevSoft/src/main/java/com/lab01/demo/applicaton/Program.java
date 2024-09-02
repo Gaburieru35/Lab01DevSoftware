@@ -9,20 +9,25 @@ import com.lab01.demo.entities.Disciplina;
 import com.lab01.demo.entities.DisciplinasOfertadas;
 import com.lab01.demo.entities.Matricula;
 import com.lab01.demo.entities.Professor;
+import com.lab01.demo.resources.UsuarioResource;
+import com.lab01.demo.service.UsuarioService;
 
 public class Program {
 
+
+
 	public static ArrayList<Aluno> alunos = new ArrayList<Aluno>();
 	public static ArrayList<Professor> professores = new ArrayList<Professor>();
-	public static ArrayList<Disciplina> disciplinas  = new ArrayList<Disciplina>();
-	public static ArrayList<DisciplinasOfertadas> disciplinasOfertadasList  = new ArrayList<DisciplinasOfertadas>();
+	public static ArrayList<Disciplina> disciplinas = new ArrayList<Disciplina>();
+	public static ArrayList<DisciplinasOfertadas> disciplinasOfertadasList = new ArrayList<DisciplinasOfertadas>();
+
 	public static void main(String[] args) {
-		
+
 		carregarMenuPrincipal();
 
 	}
 
-	public static void carregarMenuPrincipal(){
+	public static void carregarMenuPrincipal() {
 
 		Scanner sc = new Scanner(System.in);
 
@@ -38,33 +43,36 @@ public class Program {
 		int opcao = sc.nextInt();
 
 		switch (opcao) {
-			case 1:
-				cadastrarAluno();
-				break;
-			case 2:
-				cadastrarProfessor();
-				break;
-			case 3:
-				cadastrarDisciplina();
-				break;
-			case 4:
-				ofertarDisciplina();
-				break;
+		case 1:
+			cadastrarAluno();
+			break;
+		case 2:
+			cadastrarProfessor();
+			break;
+		case 3:
+			cadastrarDisciplina();
+			break;
+		case 4:
+			ofertarDisciplina();
+			break;
 
-			case 5:
-				matricularNaOferta();
-				break;
+		case 5:
+			matricularNaOferta();
+			break;
 
-			case 6:
-				cancelarMatricula();
-				break;
-			default:
-				System.out.println("Opção inválida");
-				break;
+		case 6:
+			cancelarMatricula();
+			break;
+		default:
+			System.out.println("Opção inválida");
+			break;
 		}
 	}
 
-	public static void cadastrarAluno(){
+	public static void cadastrarAluno() {
+		
+		UsuarioService usuarioService = new UsuarioService();		
+
 		Scanner sc = new Scanner(System.in);
 
 		System.out.println("Informe o nome do aluno");
@@ -76,19 +84,22 @@ public class Program {
 		System.out.println("Informe a senha do aluno");
 		String senha = sc.nextLine();
 
-		int id = new Random().nextInt(100000);
+		// DUVIDAS NESSA PARTE - Eu seto o id aqui ou automaticamente?
+		Long id = new Random().nextLong(100000);
 		Matricula mat = new Matricula();
 
-		Aluno aluno = new Aluno(nome, id, senha, curso, mat);
+		Aluno aluno = new Aluno(nome, senha, curso, mat);
 
 		alunos.add(aluno);
 
-		System.out.println("Aluno "+aluno.getNome()+" cadastrado com sucesso!");
+		usuarioService.insert(aluno);
+
+		System.out.println("Aluno " + aluno.getNome() + " cadastrado com sucesso!");
 
 		carregarMenuPrincipal();
 	}
 
-	public static void cadastrarProfessor(){
+	public static void cadastrarProfessor() {
 
 		Scanner sc = new Scanner(System.in);
 
@@ -98,19 +109,20 @@ public class Program {
 		System.out.println("Informe a senha do professor");
 		String senha = sc.nextLine();
 
-		int id = new Random().nextInt(100000);
+		// DUVIDAS NESSA PARTE - Eu seto o id aqui ou automaticamente?
+		Long id = new Random().nextLong(100000);
 
-		Professor professor = new Professor(nome, id, senha);
+		Professor professor = new Professor(nome, senha);
 
 		professores.add(professor);
 
-		System.out.println("Professor "+professor.getNome()+" cadastrado com sucesso!");
+		System.out.println("Professor " + professor.getNome() + " cadastrado com sucesso!");
 
 		carregarMenuPrincipal();
 	}
 
-	public static void cadastrarDisciplina(){
-		
+	public static void cadastrarDisciplina() {
+
 		Scanner sc = new Scanner(System.in);
 
 		System.out.println("Informe o nome da disciplina");
@@ -129,20 +141,20 @@ public class Program {
 
 		disciplinas.add(disciplina);
 
-		System.out.println("Disciplina "+disciplina.getName()+" cadastrada com sucesso!");
+		System.out.println("Disciplina " + disciplina.getName() + " cadastrada com sucesso!");
 
 		carregarMenuPrincipal();
 	}
 
-	public static void ofertarDisciplina(){
+	public static void ofertarDisciplina() {
 		Scanner sc = new Scanner(System.in);
 
 		System.out.println("Informe a disciplina");
 		listarDisciplinas();
 		Disciplina disciplina = disciplinas.get(sc.nextInt());
 
-		if(disciplina.getEstaOfertada()){
-			System.out.println("Disciplina "+disciplina.getName()+" já está ofertada!");
+		if (disciplina.getEstaOfertada()) {
+			System.out.println("Disciplina " + disciplina.getName() + " já está ofertada!");
 			carregarMenuPrincipal();
 		} else {
 			disciplina.setEstaOfertada(true);
@@ -150,19 +162,19 @@ public class Program {
 			System.out.println("Informe o Professor");
 			listarProfessores();
 			Professor prof = professores.get(sc.nextInt());
-	
+
 			DisciplinasOfertadas disciplinasOfertadas = new DisciplinasOfertadas(disciplina, prof);
-	
+
 			disciplinasOfertadasList.add(disciplinasOfertadas);
-	
-			System.out.println("Disciplina "+disciplina.getName()+" ofertada com sucesso!");
-	
+
+			System.out.println("Disciplina " + disciplina.getName() + " ofertada com sucesso!");
+
 			carregarMenuPrincipal();
 		}
-		
+
 	}
 
-	public static void matricularNaOferta(){
+	public static void matricularNaOferta() {
 		Scanner sc = new Scanner(System.in);
 
 		System.out.println("Informe a disciplina");
@@ -173,21 +185,23 @@ public class Program {
 		listarAlunos();
 		Aluno aluno = alunos.get(sc.nextInt());
 
-		if(aluno.getMatricula().getDisciplinas().indexOf(discOfert) != -1){
-			System.out.println("Aluno "+aluno.getNome()+" já está matriculado na disciplina "+discOfert.getDisciplina().getName());
+		if (aluno.getMatricula().getDisciplinas().indexOf(discOfert) != -1) {
+			System.out.println("Aluno " + aluno.getNome() + " já está matriculado na disciplina "
+					+ discOfert.getDisciplina().getName());
 			carregarMenuPrincipal();
 		} else {
-			if(discOfert.matricularAluno(aluno)){
-				System.out.println("Aluno "+aluno.getNome()+" matriculado com sucesso!");
-			}else{
-				System.out.println("Disciplina "+discOfert.getDisciplina().getName()+" encerrada por limite de alunos");
+			if (discOfert.matricularAluno(aluno)) {
+				System.out.println("Aluno " + aluno.getNome() + " matriculado com sucesso!");
+			} else {
+				System.out.println(
+						"Disciplina " + discOfert.getDisciplina().getName() + " encerrada por limite de alunos");
 			}
-	
+
 			carregarMenuPrincipal();
-		}		
+		}
 	}
 
-	public static void cancelarMatricula(){
+	public static void cancelarMatricula() {
 		Scanner sc = new Scanner(System.in);
 
 		System.out.println("Informe a disciplina");
@@ -198,52 +212,54 @@ public class Program {
 		listarAlunosPorDisciplinaOfertada(discOfert);
 		Aluno aluno = alunos.get(sc.nextInt());
 
-		if(discOfert.cancelarMatricula(aluno)){
-			System.out.println("Aluno "+aluno.getNome()+" cancelado com sucesso!");
-		}else{
-			System.out.println("Aluno "+aluno.getNome()+" não está matriculado na disciplina "+discOfert.getDisciplina().getName());
+		if (discOfert.cancelarMatricula(aluno)) {
+			System.out.println("Aluno " + aluno.getNome() + " cancelado com sucesso!");
+		} else {
+			System.out.println("Aluno " + aluno.getNome() + " não está matriculado na disciplina "
+					+ discOfert.getDisciplina().getName());
 		}
 
 		carregarMenuPrincipal();
 	}
 
-	public static void listarDisciplinas(){
-		for(Disciplina disciplina : disciplinas){
+	public static void listarDisciplinas() {
+		for (Disciplina disciplina : disciplinas) {
 
-			if(disciplina.getEstaOfertada()){
-				System.out.println(disciplinas.indexOf(disciplina)+" - "+disciplina.getName()+" - Ofertada");
+			if (disciplina.getEstaOfertada()) {
+				System.out.println(disciplinas.indexOf(disciplina) + " - " + disciplina.getName() + " - Ofertada");
 			} else {
-				System.out.println(disciplinas.indexOf(disciplina)+" - "+disciplina.getName());
-			}	
+				System.out.println(disciplinas.indexOf(disciplina) + " - " + disciplina.getName());
+			}
 		}
 	}
 
-	public static void listarProfessores(){
-		for(Professor professor : professores){
-			System.out.println(professores.indexOf(professor)+" - "+professor.getNome());
+	public static void listarProfessores() {
+		for (Professor professor : professores) {
+			System.out.println(professores.indexOf(professor) + " - " + professor.getNome());
 		}
 	}
 
-	public static void listarDisciplinasOfertadas(){
-		for(DisciplinasOfertadas disciplina : disciplinasOfertadasList){
-			System.out.println(disciplinasOfertadasList.indexOf(disciplina)+" - "+disciplina.getDisciplina().getName());
+	public static void listarDisciplinasOfertadas() {
+		for (DisciplinasOfertadas disciplina : disciplinasOfertadasList) {
+			System.out.println(
+					disciplinasOfertadasList.indexOf(disciplina) + " - " + disciplina.getDisciplina().getName());
 		}
 	}
 
-	public static void listarAlunos(){
-		for(Aluno aluno : alunos){
-			System.out.println(alunos.indexOf(aluno)+" - "+aluno.getNome());
+	public static void listarAlunos() {
+		for (Aluno aluno : alunos) {
+			System.out.println(alunos.indexOf(aluno) + " - " + aluno.getNome());
 		}
 	}
 
-	public static void listarAlunosPorDisciplinaOfertada(DisciplinasOfertadas disciplina){
-		for(Aluno aluno : alunos){
-			if(aluno.getMatricula().getDisciplinas().indexOf(disciplina) != -1){
-				System.out.println(alunos.indexOf(aluno)+" - "+aluno.getNome());
+	public static void listarAlunosPorDisciplinaOfertada(DisciplinasOfertadas disciplina) {
+		for (Aluno aluno : alunos) {
+			if (aluno.getMatricula().getDisciplinas().indexOf(disciplina) != -1) {
+				System.out.println(alunos.indexOf(aluno) + " - " + aluno.getNome());
 			}
 
-			if(alunos.stream().filter(x -> x.getMatricula().getDisciplinas().indexOf(disciplina) != -1).count() == 0){
-				System.out.println("Nenhum aluno matriculado na disciplina "+disciplina.getDisciplina().getName());
+			if (alunos.stream().filter(x -> x.getMatricula().getDisciplinas().indexOf(disciplina) != -1).count() == 0) {
+				System.out.println("Nenhum aluno matriculado na disciplina " + disciplina.getDisciplina().getName());
 				carregarMenuPrincipal();
 			}
 		}
