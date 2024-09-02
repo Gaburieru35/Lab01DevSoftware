@@ -2,10 +2,13 @@ package com.lab01.demo.entities;
 
 import java.io.Serializable;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 
-public class Aluno extends Usuario implements Serializable {
+@Entity
+@Table(name = "tb_aluno")
+public class Aluno extends Usuario {
 
-	
 	private static final long serialVersionUID = 1L;
 
 	private String curso;

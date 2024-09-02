@@ -1,27 +1,20 @@
 package com.lab01.demo.entities;
 
-import java.io.Serializable;
-
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
-
+@Entity
+@Table(name = "tb_professor")
 public class Professor extends Usuario  {
 
-	
 
-	
-
-	private Long Id;
+	private static final long serialVersionUID = 1L;
 
 	public Professor() {
 	}
 
 	public Professor(String nome, String senha) {
-		super(nome,  senha);
+		super(nome, senha);
 	}
 
 	public void verificarAlunos(Disciplina disciplina) {
