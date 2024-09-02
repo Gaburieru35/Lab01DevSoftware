@@ -1,8 +1,7 @@
-package entities;
+package com.lab01.demo.entities;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 public class Matricula {
 
@@ -67,4 +66,4 @@ public class Matricula {
 	public ArrayList<DisciplinasOfertadas> getDisciplinas() {
 		return disciplinas;
 	}
-}
+}	

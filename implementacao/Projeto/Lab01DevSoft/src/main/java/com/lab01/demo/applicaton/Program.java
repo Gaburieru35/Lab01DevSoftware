@@ -1,14 +1,14 @@
-package application;
+package com.lab01.demo.applicaton;
 
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 
-import entities.Aluno;
-import entities.Disciplina;
-import entities.DisciplinasOfertadas;
-import entities.Matricula;
-import entities.Professor;
+import com.lab01.demo.entities.Aluno;
+import com.lab01.demo.entities.Disciplina;
+import com.lab01.demo.entities.DisciplinasOfertadas;
+import com.lab01.demo.entities.Matricula;
+import com.lab01.demo.entities.Professor;
 
 public class Program {
 

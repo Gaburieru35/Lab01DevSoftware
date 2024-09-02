@@ -1,6 +1,4 @@
-package entities;
-
-import java.util.Random;
+package com.lab01.demo.entities;
 
 public class Aluno extends Usuario {
 
