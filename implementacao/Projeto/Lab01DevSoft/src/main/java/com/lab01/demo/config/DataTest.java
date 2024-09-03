@@ -9,14 +9,14 @@ import org.springframework.context.annotation.Profile;
 
 import com.lab01.demo.entities.Usuario;
 import com.lab01.demo.repository.UsuarioRepository;
+import com.lab01.demo.service.UsuarioService;
 
 @Configuration
 @Profile("test")
 public class DataTest implements CommandLineRunner{
 	
 	@Autowired
-	private UsuarioRepository usuarioRepository;
-	
+	public UsuarioRepository usuarioRepository;	
 	
 	@Override
 	public void run(String... args) throws Exception {

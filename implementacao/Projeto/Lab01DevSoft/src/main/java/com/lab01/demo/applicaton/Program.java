@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import com.lab01.demo.entities.Aluno;
 import com.lab01.demo.entities.Disciplina;
 import com.lab01.demo.entities.DisciplinasOfertadas;
@@ -12,22 +15,18 @@ import com.lab01.demo.entities.Professor;
 import com.lab01.demo.resources.UsuarioResource;
 import com.lab01.demo.service.UsuarioService;
 
+@Component
 public class Program {
 
-
-
+	@Autowired
+	UsuarioService usuarioService;
+	
 	public static ArrayList<Aluno> alunos = new ArrayList<Aluno>();
 	public static ArrayList<Professor> professores = new ArrayList<Professor>();
 	public static ArrayList<Disciplina> disciplinas = new ArrayList<Disciplina>();
 	public static ArrayList<DisciplinasOfertadas> disciplinasOfertadasList = new ArrayList<DisciplinasOfertadas>();
 
-	public static void main(String[] args) {
-
-		carregarMenuPrincipal();
-
-	}
-
-	public static void carregarMenuPrincipal() {
+	public void carregarMenuPrincipal() {
 
 		Scanner sc = new Scanner(System.in);
 
@@ -69,9 +68,7 @@ public class Program {
 		}
 	}
 
-	public static void cadastrarAluno() {
-		
-		UsuarioService usuarioService = new UsuarioService();		
+	public void cadastrarAluno() {	
 
 		Scanner sc = new Scanner(System.in);
 
@@ -99,7 +96,7 @@ public class Program {
 		carregarMenuPrincipal();
 	}
 
-	public static void cadastrarProfessor() {
+	public void cadastrarProfessor() {
 
 		Scanner sc = new Scanner(System.in);
 
@@ -121,7 +118,7 @@ public class Program {
 		carregarMenuPrincipal();
 	}
 
-	public static void cadastrarDisciplina() {
+	public void cadastrarDisciplina() {
 
 		Scanner sc = new Scanner(System.in);
 
@@ -146,7 +143,7 @@ public class Program {
 		carregarMenuPrincipal();
 	}
 
-	public static void ofertarDisciplina() {
+	public void ofertarDisciplina() {
 		Scanner sc = new Scanner(System.in);
 
 		System.out.println("Informe a disciplina");
@@ -174,7 +171,7 @@ public class Program {
 
 	}
 
-	public static void matricularNaOferta() {
+	public void matricularNaOferta() {
 		Scanner sc = new Scanner(System.in);
 
 		System.out.println("Informe a disciplina");
@@ -201,7 +198,7 @@ public class Program {
 		}
 	}
 
-	public static void cancelarMatricula() {
+	public void cancelarMatricula() {
 		Scanner sc = new Scanner(System.in);
 
 		System.out.println("Informe a disciplina");
@@ -222,7 +219,7 @@ public class Program {
 		carregarMenuPrincipal();
 	}
 
-	public static void listarDisciplinas() {
+	public void listarDisciplinas() {
 		for (Disciplina disciplina : disciplinas) {
 
 			if (disciplina.getEstaOfertada()) {
@@ -233,26 +230,33 @@ public class Program {
 		}
 	}
 
-	public static void listarProfessores() {
+	public void listarProfessores() {
 		for (Professor professor : professores) {
+			if(professores.isEmpty()) {
+				System.out.println("Nenhum professor cadastrado, retornando ao menu principal");
+				carregarMenuPrincipal();
+
+				break;
+			}
+
 			System.out.println(professores.indexOf(professor) + " - " + professor.getNome());
 		}
 	}
 
-	public static void listarDisciplinasOfertadas() {
+	public void listarDisciplinasOfertadas() {
 		for (DisciplinasOfertadas disciplina : disciplinasOfertadasList) {
 			System.out.println(
 					disciplinasOfertadasList.indexOf(disciplina) + " - " + disciplina.getDisciplina().getName());
 		}
 	}
 
-	public static void listarAlunos() {
+	public void listarAlunos() {
 		for (Aluno aluno : alunos) {
 			System.out.println(alunos.indexOf(aluno) + " - " + aluno.getNome());
 		}
 	}
 
-	public static void listarAlunosPorDisciplinaOfertada(DisciplinasOfertadas disciplina) {
+	public void listarAlunosPorDisciplinaOfertada(DisciplinasOfertadas disciplina) {
 		for (Aluno aluno : alunos) {
 			if (aluno.getMatricula().getDisciplinas().indexOf(disciplina) != -1) {
 				System.out.println(alunos.indexOf(aluno) + " - " + aluno.getNome());
@@ -265,4 +269,5 @@ public class Program {
 		}
 
 	}
+
 }
