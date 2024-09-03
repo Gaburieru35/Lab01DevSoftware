@@ -81,4 +81,12 @@ public class Disciplina implements Serializable {
 		this.estaOfertada = estaOfertada;
 	}
 
+	public Long getId() {
+		return Id;
+	}
+
+	public void setId(Long id) {
+		Id = id;
+	}
+
 }

@@ -13,6 +13,8 @@ import com.lab01.demo.entities.DisciplinasOfertadas;
 import com.lab01.demo.entities.Matricula;
 import com.lab01.demo.entities.Professor;
 import com.lab01.demo.resources.UsuarioResource;
+import com.lab01.demo.service.DisciplinaService;
+import com.lab01.demo.service.DisciplinasOfertadasService;
 import com.lab01.demo.service.UsuarioService;
 
 @Component
@@ -20,6 +22,10 @@ public class Program {
 
 	@Autowired
 	UsuarioService usuarioService;
+	@Autowired
+	DisciplinaService disciplinaService;
+	@Autowired
+	DisciplinasOfertadasService disciplinasOfertadasService;
 	
 	public static ArrayList<Aluno> alunos = new ArrayList<Aluno>();
 	public static ArrayList<Professor> professores = new ArrayList<Professor>();
@@ -113,6 +119,8 @@ public class Program {
 
 		professores.add(professor);
 
+		usuarioService.insert(professor);
+
 		System.out.println("Professor " + professor.getNome() + " cadastrado com sucesso!");
 
 		carregarMenuPrincipal();
@@ -137,6 +145,8 @@ public class Program {
 		Disciplina disciplina = new Disciplina(nome, codigo, creditos, cargaHoraria);
 
 		disciplinas.add(disciplina);
+
+		disciplinaService.insert(disciplina);
 
 		System.out.println("Disciplina " + disciplina.getName() + " cadastrada com sucesso!");
 
@@ -164,6 +174,8 @@ public class Program {
 
 			disciplinasOfertadasList.add(disciplinasOfertadas);
 
+			disciplinasOfertadasService.insert(disciplinasOfertadas);
+
 			System.out.println("Disciplina " + disciplina.getName() + " ofertada com sucesso!");
 
 			carregarMenuPrincipal();
@@ -189,6 +201,8 @@ public class Program {
 		} else {
 			if (discOfert.matricularAluno(aluno)) {
 				System.out.println("Aluno " + aluno.getNome() + " matriculado com sucesso!");
+				usuarioService.update(aluno);
+
 			} else {
 				System.out.println(
 						"Disciplina " + discOfert.getDisciplina().getName() + " encerrada por limite de alunos");
@@ -211,6 +225,7 @@ public class Program {
 
 		if (discOfert.cancelarMatricula(aluno)) {
 			System.out.println("Aluno " + aluno.getNome() + " cancelado com sucesso!");
+			usuarioService.update(aluno);
 		} else {
 			System.out.println("Aluno " + aluno.getNome() + " não está matriculado na disciplina "
 					+ discOfert.getDisciplina().getName());

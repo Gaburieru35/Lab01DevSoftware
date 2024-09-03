@@ -71,4 +71,12 @@ public class DisciplinasOfertadas implements Serializable {
     public Disciplina getDisciplina(){
         return this.disciplina;
     }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 }
