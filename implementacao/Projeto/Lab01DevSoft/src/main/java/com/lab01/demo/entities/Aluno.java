@@ -3,6 +3,7 @@ package com.lab01.demo.entities;
 import java.io.Serializable;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.Lob;
 import jakarta.persistence.Table;
 
 @Entity
@@ -12,6 +13,7 @@ public class Aluno extends Usuario {
 	private static final long serialVersionUID = 1L;
 
 	private String curso;
+	@Lob
 	private Matricula matricula;
 
 	public Aluno() {

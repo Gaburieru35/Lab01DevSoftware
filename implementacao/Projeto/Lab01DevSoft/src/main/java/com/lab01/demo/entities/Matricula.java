@@ -8,6 +8,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Lob;
 import jakarta.persistence.Table;
 
 @Entity
@@ -24,6 +25,7 @@ public class Matricula implements Serializable {
 	private Date data;
 	private boolean status = true;
 	private String tipo;
+	@Lob
 	private ArrayList<DisciplinasOfertadas> disciplinas = new ArrayList<DisciplinasOfertadas>();
 
 	public Matricula() {

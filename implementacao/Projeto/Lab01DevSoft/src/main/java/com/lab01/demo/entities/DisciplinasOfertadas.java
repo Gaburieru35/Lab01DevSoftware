@@ -7,6 +7,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Lob;
 import jakarta.persistence.Table;
 
 @Entity
@@ -19,9 +20,11 @@ public class DisciplinasOfertadas implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
+    @Lob
 	private Disciplina disciplina;
     private Date prazo;
     private boolean status = true;
+    @Lob
     private Professor professor;
 
     public DisciplinasOfertadas(Disciplina disciplina, Professor professor){
